@@ -1,0 +1,4 @@
+node -v
+npm init -y
+node app        //to run app.js
+npm run start   //to start
