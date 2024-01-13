@@ -1,19 +1,30 @@
-const text = [
-  "On a bright spring morning, Collette and Jimmy went to the zoo.",
-  '"Collette, what animals do you want to see today at the zoo?" asked Jimmy.  "I want to see the jaguars" , answered Collette.',
-  '"Cool!" said Jimmy. "Let\'s go."',
-];
-
-let current = 0;
+let current = 0,
+  storyData,
+  audio;
 
 function updatePageContent() {
-  document.getElementById("image").src = `Images/${current + 1}.jpg`;
-  document.getElementById("text").textContent = text[current];
-  document.getElementById("audioPlayer").src = `Audio/${current + 1}.mp3`;
+  const currentSlide = storyData.story.slides[current];
+
+  document.getElementById("image").src = currentSlide.photo;
+  document.getElementById("text").textContent = currentSlide.text;
+
+  if (audio) {
+    audio.pause(); // stop the current before creating a new Audio object
+    audio.currentTime = 0;
+  }
+
+  audio = new Audio(currentSlide.audio);
+  playAudio();
+}
+
+function playAudio() {
+  audio.pause(); //stop the current before replaying
+  audio.currentTime = 0;
+  audio.play();
 }
 
 function nextPage() {
-  if (current < text.length - 1) {
+  if (current < storyData.story.slides.length - 1) {
     current++;
     updatePageContent();
   }
@@ -26,4 +37,17 @@ function prevPage() {
   }
 }
 
-window.onload = updatePageContent;
+window.onload = () => {
+  fetch("http://localhost:8000/Stories/Story1/Story1.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to fetch JSON: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      storyData = data;
+      updatePageContent();
+    })
+    .catch((error) => console.error("Error fetching JSON:", error.message));
+};

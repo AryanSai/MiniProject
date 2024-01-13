@@ -1,1 +1,1 @@
-My WebDevelopment Repo
+My Mini Project

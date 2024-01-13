@@ -1,0 +1,10 @@
+{
+  "stories": [
+    {
+      "id": 1,
+      "title": "The Zoo",
+      "author": "Aryan",
+      "path": "Stories/Story1/Story1.json"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Story Reader</title>
+  </head>
+
+  <body>
+    <br />
+    <div class="page" data-audio="audio/page1.mp3">
+      <img id="image" src="" alt="Page Image" />
+      <p id="text"></p>
+      <div class="audio-container">
+        <button onclick="prevPage()">Previous</button>
+        <button onclick="playAudio()">Replay</button>
+        <button onclick="nextPage()">Next</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
