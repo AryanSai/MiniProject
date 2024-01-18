@@ -4,15 +4,12 @@ let current = 0,
 
 function updatePageContent() {
   const currentSlide = storyData.story.slides[current];
-
   document.getElementById("image").src = currentSlide.photo;
   document.getElementById("text").textContent = currentSlide.text;
-
   if (audio) {
     audio.pause(); // stop the current before creating a new Audio object
     audio.currentTime = 0;
   }
-
   audio = new Audio(currentSlide.audio);
   playAudio();
 }
@@ -38,7 +35,7 @@ function prevPage() {
 }
 
 window.onload = () => {
-  fetch("http://localhost:8000/Stories/Story1/Story1.json")
+  fetch("http://0.0.0.0:8000/Stories/Story1/Story1.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Failed to fetch JSON: ${response.statusText}`);
