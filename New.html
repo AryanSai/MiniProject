@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .highlight {
+        background-color: yellow;
+      }
+    </style>
+    <title>Home</title>
+  </head>
+
+  <body>
+    <p id="text"></p>
+    <p class="result"></p>
+    <button onclick="highlight()">highlight</button>
+
+    <script>
+      function highlight() {
+        const keywords = ["apple", "good", "bad"];
+        document.getElementById("text").textContent =
+          "sairam this is a good apple good";
+        let content = document.getElementById("text").innerText;
+        document.querySelector(".result").innerHTML = transformContent(
+          content,
+          keywords
+        );
+      }
+
+      function transformContent(content, keywords) {
+        let temp = content;
+        keywords.forEach((keyword) => {
+          temp = temp.replace(
+            new RegExp(keyword, "ig"),
+            wrapKeywordWithHTML(
+              keyword,
+              `https://www.google.com/search?q=${keyword}`
+            )
+          );
+        });
+
+        return temp;
+      }
+
+      function wrapKeywordWithHTML(keyword, url) {
+        return `<a href="${url}" class="highlight">${keyword}</a>`;
+      }
+    </script>
+  </body>
+</html>

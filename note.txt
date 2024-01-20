@@ -5,3 +5,9 @@ npm run start   //to start
 
 //start the server 
 python3 -m http.server
+
+
+To Do:
+Stories.json
+dictionary
+next and previous buttons
