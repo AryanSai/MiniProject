@@ -4,27 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
-
     <title>Glossary</title>
   </head>
 
   <body>
     <center>
-      <h1>Word Meaning</h1>
-      <p id="meaning-text"></p>
+      <h1 id="word"></h1>
+      <p id="meaning"></p>
     </center>
 
     <script>
       let dictionary;
-
-      // ...
-
       window.onload = () => {
-        const meaningText = document.getElementById("meaning-text");
-
-        // Display loading message
-        meaningText.textContent = "Loading...";
-
         fetch("http://0.0.0.0:8000/Dictonary.json")
           .then((response) => {
             if (!response.ok) {
@@ -40,10 +31,11 @@
             const meaning = getMeaning(word);
 
             if (meaning) {
-              // Display the meaning
-              meaningText.textContent = `Meaning of "${word}": ${meaning}`;
+              document.getElementById(
+                "meaning"
+              ).textContent = `Meaning: ${meaning}`;
+              document.getElementById("word").textContent = `${word}`;
             } else {
-              // Meaning not found
               meaningText.textContent = `Meaning not found for "${word}"`;
             }
           })
@@ -56,8 +48,6 @@
               "An error occurred while fetching the data.";
           });
       };
-
-      // ...
 
       function getMeaning(word) {
         if (dictionary && dictionary.words) {
