@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Glossary</title>
+  </head>
+
+  <body>
+    <center>
+      <h1>Word Meaning</h1>
+      <p id="meaning-text"></p>
+    </center>
+
+    <script>
+      let dictionary;
+
+      // ...
+
+      window.onload = () => {
+        const meaningText = document.getElementById("meaning-text");
+
+        // Display loading message
+        meaningText.textContent = "Loading...";
+
+        fetch("http://0.0.0.0:8000/Dictonary.json")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `Failed to fetch Dictionary JSON: ${response.statusText}`
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            dictionary = data;
+            const word = decodeURIComponent(window.location.hash.substring(1));
+            const meaning = getMeaning(word);
+
+            if (meaning) {
+              // Display the meaning
+              meaningText.textContent = `Meaning of "${word}": ${meaning}`;
+            } else {
+              // Meaning not found
+              meaningText.textContent = `Meaning not found for "${word}"`;
+            }
+          })
+          .catch((error) => {
+            console.error(
+              "Error fetching or processing Dictionary JSON:",
+              error.message
+            );
+            meaningText.textContent =
+              "An error occurred while fetching the data.";
+          });
+      };
+
+      // ...
+
+      function getMeaning(word) {
+        if (dictionary && dictionary.words) {
+          const wordObj = dictionary.words.find(
+            (wordObj) => wordObj.word === word
+          );
+          return wordObj ? wordObj.meaning : `Meaning not found for "${word}"`;
+        } else {
+          return "Dictionary not available";
+        }
+      }
+    </script>
+  </body>
+</html>

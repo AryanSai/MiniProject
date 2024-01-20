@@ -9,24 +9,23 @@
         background-color: yellow;
       }
     </style>
-    <title>Home</title>
+    <title>Highlight</title>
   </head>
 
   <body>
-    <p id="text"></p>
-    <p class="result"></p>
-    <button onclick="highlight()">highlight</button>
+    <p id="text">sairam this is a good apple good</p>
 
     <script>
+      let dictionary;
+
       function highlight() {
-        const keywords = ["apple", "good", "bad"];
-        document.getElementById("text").textContent =
-          "sairam this is a good apple good";
-        let content = document.getElementById("text").innerText;
-        document.querySelector(".result").innerHTML = transformContent(
-          content,
-          keywords
-        );
+        const keywords = dictionary.words.map((wordObj) => wordObj.word);
+
+        const textElement = document.getElementById("text");
+        textElement.textContent = "sairam this is a good apple good today zoo";
+
+        let content = textElement.innerText;
+        textElement.innerHTML = transformContent(content, keywords);
       }
 
       function transformContent(content, keywords) {
@@ -34,19 +33,45 @@
         keywords.forEach((keyword) => {
           temp = temp.replace(
             new RegExp(keyword, "ig"),
-            wrapKeywordWithHTML(
-              keyword,
-              `https://www.google.com/search?q=${keyword}`
-            )
+            wrapKeywordWithHTML(keyword)
           );
         });
 
         return temp;
       }
 
-      function wrapKeywordWithHTML(keyword, url) {
-        return `<a href="${url}" class="highlight">${keyword}</a>`;
+      function wrapKeywordWithHTML(keyword) {
+        const meaning = getMeaning(keyword);
+        return `<a href="Meaning.html#${encodeURIComponent(
+          keyword
+        )}" class="highlight" title="${meaning}">${keyword}</a>`;
       }
+
+      function getMeaning(keyword) {
+        const wordObj = dictionary.words.find(
+          (wordObj) => wordObj.word === keyword
+        );
+        return wordObj ? wordObj.meaning : "Meaning not found";
+      }
+
+      window.onload = () => {
+        fetch("http://0.0.0.0:8000/Dictonary.json")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `Failed to fetch Story JSON: ${response.statusText}`
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            dictionary = data;
+            highlight();
+          })
+          .catch((error) =>
+            console.error("Error fetching Dictionary JSON:", error.message)
+          );
+      };
     </script>
   </body>
 </html>
