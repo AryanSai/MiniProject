@@ -11,14 +11,41 @@
     <center>
       <h1>Vidya Vahini</h1>
       <h2>Available Stories</h2>
-      <div class="menu">
-        <a href="StoryReader.html">Story 1</a>
-        <a href="#">Story 2</a>
-        <a href="#">Story 3</a>
-        <a href="#">Story 4</a>
-      </div>
+      <div class="menu" id="menu"></div>
     </center>
 
-    <script src="script.js"></script>
+    <script>
+      let storiesData, path;
+
+      function updatePageContent() {
+        var count = storiesData.stories.length;
+        var menu = document.getElementById("menu");
+
+        for (var i = 0; i < count; i++) {
+          var anchorTag = document.createElement("a");
+          anchorTag.href = "StoryReader.html?id=" + i;
+          path = storiesData.stories[i].path;
+          // Store the path in sessionStorage
+          sessionStorage.setItem("path", path);
+          anchorTag.textContent = storiesData.stories[i].title;
+          menu.appendChild(anchorTag);
+        }
+      }
+
+      window.onload = () => {
+        const storyJSON = fetch("http://0.0.0.0:8000/Stories.json")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Failed to fetch JSON: ${response.statusText}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            storiesData = data;
+            console.log(storiesData.stories);
+            updatePageContent();
+          });
+      };
+    </script>
   </body>
 </html>

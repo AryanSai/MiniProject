@@ -4,11 +4,12 @@ body {
 }
 
 .menu {
-  width: 1200px;
+  width: 120px;
 }
 
 .highlight {
   background-color: yellow;
+  text-decoration: none; /*remove underline */
 }
 
 .menu a {
@@ -41,10 +42,10 @@ button {
 }
 
 .page img {
-  max-width: 80%;
-  max-height: 60%;
+  max-width: 100%;
+  max-height: 80%;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 8px;
 }
 
