@@ -24,9 +24,6 @@
         for (var i = 0; i < count; i++) {
           var anchorTag = document.createElement("a");
           anchorTag.href = "StoryReader.html?id=" + i;
-          path = storiesData.stories[i].path;
-          // Store the path in sessionStorage
-          sessionStorage.setItem("path", path);
           anchorTag.textContent = storiesData.stories[i].title;
           menu.appendChild(anchorTag);
         }

@@ -61,49 +61,7 @@ function getUrlParameter(name) {
     : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-// window.onload = () => {
-//   var storyId = getUrlParameter("id");
-//   console.log("Story ID:", storyId);
-
-//   const storyFetch = fetch(
-//     "http://0.0.0.0:8000/Stories/Story2/Story2.json"
-//   ).then((response) => {
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch JSON: ${response.statusText}`);
-//     }
-//     return response.json();
-//   });
-
-//   const dictionaryFetch = fetch("http://0.0.0.0:8000/Dictonary.json").then(
-//     (response) => {
-//       if (!response.ok) {
-//         throw new Error(
-//           `Failed to fetch Dictionary JSON: ${response.statusText}`
-//         );
-//       }
-//       return response.json();
-//     }
-//   );
-
-//   Promise.all([storyFetch, dictionaryFetch])
-//     .then(([storyDataResponse, dictionaryData]) => {
-//       storyData = storyDataResponse;
-//       dictionary = dictionaryData;
-//       updatePageContent();
-//     })
-//     .catch((error) => console.error("Error fetching JSON:", error.message));
-// };
-
 window.onload = () => {
-  // Retrieve the path from sessionStorage
-  var path = sessionStorage.getItem("path");
-
-  // Use the path as needed
-  console.log("Path from sessionStorage:", path);
-
-  // Clear the path from sessionStorage if necessary
-  sessionStorage.removeItem("path");
-
   var storyId = getUrlParameter("id");
   console.log("Story ID:", storyId);
 
@@ -132,10 +90,6 @@ window.onload = () => {
       storyData = storyDataResponse;
       dictionary = dictionaryData;
       updatePageContent();
-
-      // Add event listeners after the data has been loaded
-      document.getElementById("nextButton").addEventListener("click", nextPage);
-      document.getElementById("prevButton").addEventListener("click", prevPage);
     })
     .catch((error) => console.error("Error fetching JSON:", error.message));
 };
