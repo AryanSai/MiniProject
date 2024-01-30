@@ -1,27 +1,15 @@
 {
   "stories": [
     {
-      "id": 0,
+      "id": 1,
       "title": "The Zoo",
       "author": "Aryan",
-      "path": "Stories/Story1/Story1.json"
-    },
-    {
-      "id": 1,
-      "title": "One Day in School",
-      "author": "Aryan",
-      "path": "Stories/Story2/Story2.json"
+      "path": "Stories/Story0/Story0.json"
     },
     {
       "id": 2,
-      "title": "The School",
+      "title": "One Day in School",
       "author": "Aryan",
-      "path": "Stories/Story1/Story1.json"
-    },
-    {
-      "id": 3,
-      "title": "The Computer",
-      "author": "Shirdeesh",
       "path": "Stories/Story1/Story1.json"
     }
   ]

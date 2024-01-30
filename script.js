@@ -1,7 +1,10 @@
 let current = 0,
   storyData,
+  storiesData,
   audio,
-  dictionary;
+  dictionary,
+  storyJSON,
+  finalUrl;
 
 function updatePageContent() {
   const currentSlide = storyData.story.slides[current];
@@ -65,29 +68,38 @@ window.onload = () => {
   var storyId = getUrlParameter("id");
   console.log("Story ID:", storyId);
 
-  const storyFetch = fetch(
-    "http://0.0.0.0:8000/Stories/Story2/Story2.json"
-  ).then((response) => {
-    if (!response.ok) {
-      throw new Error(`Failed to fetch JSON: ${response.statusText}`);
-    }
-    return response.json();
-  });
-
-  const dictionaryFetch = fetch("http://0.0.0.0:8000/Dictonary.json").then(
-    (response) => {
+  const storyJSON = fetch("http://0.0.0.0:8000/Stories.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to fetch JSON: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      storiesData = data;
+      var baseUrl = "http://0.0.0.0:8000/";
+      finalUrl = baseUrl + storiesData.stories[storyId].path;
+      return fetch(finalUrl);
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to fetch JSON: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((storyDataResponse) => {
+      storyData = storyDataResponse;
+      return fetch("http://0.0.0.0:8000/Dictonary.json");
+    })
+    .then((response) => {
       if (!response.ok) {
         throw new Error(
           `Failed to fetch Dictionary JSON: ${response.statusText}`
         );
       }
       return response.json();
-    }
-  );
-
-  Promise.all([storyFetch, dictionaryFetch])
-    .then(([storyDataResponse, dictionaryData]) => {
-      storyData = storyDataResponse;
+    })
+    .then((dictionaryData) => {
       dictionary = dictionaryData;
       updatePageContent();
     })

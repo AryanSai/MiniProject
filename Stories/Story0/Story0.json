@@ -1,0 +1,26 @@
+{
+  "story": {
+    "title": "The Zoo",
+    "author": "Aryan",
+    "slides": [
+      {
+        "id": 1,
+        "photo": "Stories/Story0/Images/1.jpg",
+        "text": "On a bright spring morning, Collette and Jimmy went to the zoo.",
+        "audio": "Stories/Story0/Audio/1.mp3"
+      },
+      {
+        "id": 2,
+        "photo": "Stories/Story0/Images/2.jpg",
+        "text": "\"Collette, what animals do you want to see today at the zoo?\" asked Jimmy.  \"I want to see the jaguars\" , answered Collette.",
+        "audio": "Stories/Story0/Audio/2.mp3"
+      },
+      {
+        "id": 3,
+        "photo": "Stories/Story0/Images/3.jpg",
+        "text": "Cool! said Jimmy Let us go.",
+        "audio": "Stories/Story0/Audio/3.mp3"
+      }
+    ]
+  }
+}
