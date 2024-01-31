@@ -5,6 +5,11 @@ body {
   font-family: "ABeeZee";
 }
 
+#logo{
+  width: 1400px;
+  height: 300px;
+}
+
 .menu {
   width: 800px;
 }
