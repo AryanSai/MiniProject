@@ -8,15 +8,29 @@
   </head>
 
   <body>
-    <br />
     <div class="page">
-      <img id="image" src=""/>
+      <h2 id="title"></h2>
+      <img id="image" src="" />
       <p id="text"></p>
       <div class="audio-container">
-        <button onclick="prevPage()">Previous</button>
-        <button onclick="playAudio()">Replay</button>
-        <button onclick="nextPage()">Next</button>
+        <button class="tooltip" onclick="prevPage()">
+          &laquo;<span class="tooltiptext">Previous Page</span>
+        </button>
+        <button class="tooltip" onclick="playAudio()">
+          Replay &#x27F3;<span class="tooltiptext">Replay the audio</span>
+        </button>
+        <button class="tooltip" onclick="nextPage()">
+          &raquo;<span class="tooltiptext">Next Page</span>
+        </button>
       </div>
+    </div>
+
+    <div id="sideNav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeSideNav()"
+        >&times;</a
+      >
+      <div id="word"></div>
+      <div id="meaning"></div>
     </div>
 
     <script src="script.js"></script>

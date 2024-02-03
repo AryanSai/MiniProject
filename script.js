@@ -4,10 +4,14 @@ let current = 0,
   audio,
   dictionary,
   storyJSON,
-  finalUrl;
+  finalUrl,
+  title,
+  storyId;
 
 function updatePageContent() {
+  title = storiesData.stories[storyId].title;
   const currentSlide = storyData.story.slides[current];
+  document.getElementById("title").textContent = title;
   document.getElementById("image").src = currentSlide.photo;
 
   const keywords = dictionary.words.map((wordObj) => wordObj.word);
@@ -15,7 +19,7 @@ function updatePageContent() {
   textElement.innerHTML = highlight(currentSlide.text, keywords);
 
   if (audio) {
-    audio.pause(); // stop the current before creating a new Audio object
+    audio.pause();
     audio.currentTime = 0;
   }
   audio = new Audio(currentSlide.audio);
@@ -24,9 +28,9 @@ function updatePageContent() {
 
 function highlight(content, keywords) {
   keywords.forEach((keyword) => {
-    const replacement = `<a href="Glossary.html#${encodeURIComponent(
-      keyword
-    )}" class="highlight" title="">${keyword}</a>`;
+    const meaning = getMeaning(keyword);
+
+    const replacement = `<span class="highlight" title="${meaning}" onclick="logMeaning('${keyword}')">${keyword}</span>`;
 
     const regex = new RegExp(keyword, "ig");
     content = content.replace(regex, replacement);
@@ -35,13 +39,19 @@ function highlight(content, keywords) {
   return content;
 }
 
+function getMeaning(keyword) {
+  const wordObj = dictionary.words.find((wordObj) => wordObj.word === keyword);
+  return wordObj ? wordObj.meaning : "Meaning not found";
+}
+
 function playAudio() {
-  audio.pause(); //stop the current before replaying
+  audio.pause();
   audio.currentTime = 0;
   audio.play();
 }
 
 function nextPage() {
+  closeSideNav();
   if (current < storyData.story.slides.length - 1) {
     current++;
     updatePageContent();
@@ -49,12 +59,27 @@ function nextPage() {
 }
 
 function prevPage() {
+  closeSideNav();
   if (current > 0) {
     current--;
     updatePageContent();
   }
 }
 
+function logMeaning(keyword) {
+  const meaning = getMeaning(keyword);
+  document.getElementById("word").innerHTML = keyword;
+  document.getElementById("meaning").innerHTML = "Meaning: " + meaning;
+  openSideNav();
+}
+
+function openSideNav() {
+  document.getElementById("sideNav").style.width = "250px";
+}
+
+function closeSideNav() {
+  document.getElementById("sideNav").style.width = "0";
+}
 function getUrlParameter(name) {
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
   var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
@@ -65,9 +90,7 @@ function getUrlParameter(name) {
 }
 
 window.onload = () => {
-  var storyId = getUrlParameter("id");
-  console.log("Story ID:", storyId);
-
+  storyId = getUrlParameter("id");
   const storyJSON = fetch("http://0.0.0.0:8000/Stories.json")
     .then((response) => {
       if (!response.ok) {
