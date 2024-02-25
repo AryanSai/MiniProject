@@ -30,7 +30,7 @@ function highlight(content, keywords) {
   keywords.forEach((keyword) => {
     const meaning = getMeaning(keyword);
 
-    const replacement = `<span class="highlight" title="${meaning}" onclick="logMeaning('${keyword}')">${keyword}</span>`;
+    const replacement = `<span class="highlight" title="${meaning}" onclick="displayMeaning('${keyword}')">${keyword}</span>`;
 
     const regex = new RegExp(keyword, "ig");
     content = content.replace(regex, replacement);
@@ -66,7 +66,7 @@ function prevPage() {
   }
 }
 
-function logMeaning(keyword) {
+function displayMeaning(keyword) {
   const meaning = getMeaning(keyword);
   document.getElementById("word").innerHTML = keyword;
   document.getElementById("meaning").innerHTML = "Meaning: " + meaning;
@@ -74,12 +74,13 @@ function logMeaning(keyword) {
 }
 
 function openSideNav() {
-  document.getElementById("sideNav").style.width = "250px";
+  document.getElementById("sidenav").style.width = "100%";
 }
 
 function closeSideNav() {
-  document.getElementById("sideNav").style.width = "0";
+  document.getElementById("sidenav").style.width = "0";
 }
+
 function getUrlParameter(name) {
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
   var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");

@@ -10,6 +10,7 @@ body {
   width: 800px;
 }
 
+
 .highlight {
   background-color: yellow;
   text-decoration: none; /*remove underline */
@@ -98,6 +99,7 @@ button {
 }
 
 .sidenav {
+  color: white;
   height: 100%;
   width: 0;
   position: fixed;
@@ -109,16 +111,15 @@ button {
   transition: 0.5s;
   padding-top: 60px;
   text-align: center;
-  color: #fff;
 }
 
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
+  color: #818181;
   display: block;
   transition: 0.3s;
-  color: #fff;
 }
 
 .sidenav a:hover {
@@ -128,7 +129,6 @@ button {
 .sidenav .closebtn {
   position: absolute;
   top: 0;
-  color: #fff;
   right: 25px;
   font-size: 36px;
   margin-left: 50px;

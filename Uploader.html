@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Story Uploader</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .form-container {
+        max-width: 60%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+
+      .slides-container {
+        margin-top: 20px;
+      }
+
+      .slide {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="form-container">
+      <center>
+        <h1>Story Uploader</h1>
+        <button id="uploadButton">Upload New Story</button>
+        <button id="modifyButton">Modify Old Story</button>
+
+        <form id="loadForm" style="display: none">
+          <input
+            type="file"
+            id="fileInput"
+            accept=".json"
+            style="display: none"
+            onchange="loadExistingData()"
+          />
+
+          <button
+            type="button"
+            id="loadStory"
+            onclick="document.getElementById('fileInput').click()"
+          >
+            Upload JSON
+          </button>
+        </form>
+      </center>
+
+      <form id="storyForm" style="display: none">
+        <label for="title">Story Title:</label>
+        <input type="text" id="title" name="title" required />
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required />
+
+        <div class="slides-container" id="slidesContainer">
+          <!--dynamically slides are added-->
+        </div>
+
+        <button type="button" onclick="addSlide()">Add New Slide</button>
+        <button type="button" onclick="generateJSON()">Download JSON</button>
+      </form>
+    </div>
+
+    <script>
+      let slideCount = 1;
+
+      document
+        .getElementById("uploadButton")
+        .addEventListener("click", function () {
+          document.getElementById("storyForm").style.display = "block";
+          document.getElementById("modifyButton").style.display = "none";
+          this.style.display = "none";
+        });
+
+      document
+        .getElementById("modifyButton")
+        .addEventListener("click", function () {
+          document.getElementById("loadForm").style.display = "block";
+          document.getElementById("storyForm").style.display = "block";
+          document.getElementById("uploadButton").style.display = "none";
+          this.style.display = "none";
+        });
+
+      function addSlide() {
+        const slidesContainer = document.getElementById("slidesContainer");
+
+        const slideDiv = document.createElement("div");
+        slideDiv.classList.add("slide");
+
+        const slideTitle = document.createElement("h2");
+        slideTitle.textContent = `Slide ${slideCount}`;
+        slideDiv.appendChild(slideTitle);
+
+        const labelPhoto = document.createElement("label");
+        labelPhoto.textContent = "Photo URL:";
+        slideDiv.appendChild(labelPhoto);
+
+        const inputPhoto = document.createElement("input");
+        inputPhoto.type = "text";
+        inputPhoto.name = `photo${slideCount}`;
+        inputPhoto.required = true;
+        slideDiv.appendChild(inputPhoto);
+
+        const labelText = document.createElement("label");
+        labelText.textContent = "Slide Text:";
+        slideDiv.appendChild(labelText);
+
+        const inputText = document.createElement("input");
+        inputText.type = "text";
+        inputText.name = `text${slideCount}`;
+        inputText.required = true;
+        slideDiv.appendChild(inputText);
+
+        const labelAudio = document.createElement("label");
+        labelAudio.textContent = "Audio URL:";
+        slideDiv.appendChild(labelAudio);
+
+        const inputAudio = document.createElement("input");
+        inputAudio.type = "text";
+        inputAudio.name = `audio${slideCount}`;
+        inputAudio.required = true;
+        slideDiv.appendChild(inputAudio);
+
+        slidesContainer.appendChild(slideDiv);
+        slideCount++;
+      }
+
+      function generateJSON() {
+        const storyData = {
+          story: {
+            title: document.getElementById("title").value,
+            author: document.getElementById("author").value,
+            slides: [],
+          },
+        };
+
+        for (let i = 1; i < slideCount; i++) {
+          const photo = document.getElementsByName(`photo${i}`)[0].value;
+          const text = document.getElementsByName(`text${i}`)[0].value;
+          const audio = document.getElementsByName(`audio${i}`)[0].value;
+
+          storyData.story.slides.push({
+            id: i,
+            photo: photo,
+            text: text,
+            audio: audio,
+          });
+        }
+
+        const existingData = loadExistingData();
+        if (existingData) {
+          existingData.story.slides.forEach((slide) => {
+            storyData.story.slides.push(slide);
+          });
+        }
+
+        const jsonData = JSON.stringify(storyData, null, 2);
+        downloadJSON(jsonData, document.getElementById("title").value+".json");
+      }
+
+      function downloadJSON(data, filename) {
+        const blob = new Blob([data], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      }
+
+      function loadExistingData() {
+        const fileInput = document.getElementById("fileInput");
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          const reader = new FileReader();
+          reader.readAsText(file);
+          reader.onload = function (event) {
+            const jsonData = JSON.parse(event.target.result);
+            displayExistingData(jsonData);
+          };
+        }
+      }
+
+      function displayExistingData(data) {
+        const slidesContainer = document.getElementById("slidesContainer");
+        slidesContainer.innerHTML = "";
+        slideCount = 1;
+
+        document.getElementById("title").value = data.story.title;
+        document.getElementById("author").value = data.story.author;
+
+        data.story.slides.forEach((slide) => {
+          const slideDiv = document.createElement("div");
+          slideDiv.classList.add("slide");
+
+          const slideTitle = document.createElement("h2");
+          slideTitle.textContent = `Slide ${slideCount}`;
+          slideDiv.appendChild(slideTitle);
+
+          const labelPhoto = document.createElement("label");
+          labelPhoto.textContent = "Photo URL:";
+          slideDiv.appendChild(labelPhoto);
+
+          const inputPhoto = document.createElement("input");
+          inputPhoto.type = "text";
+          inputPhoto.name = `photo${slideCount}`;
+          inputPhoto.required = true;
+          inputPhoto.value = slide.photo;
+          slideDiv.appendChild(inputPhoto);
+
+          const labelText = document.createElement("label");
+          labelText.textContent = "Slide Text:";
+          slideDiv.appendChild(labelText);
+
+          const inputText = document.createElement("input");
+          inputText.type = "text";
+          inputText.name = `text${slideCount}`;
+          inputText.required = true;
+          inputText.value = slide.text;
+          slideDiv.appendChild(inputText);
+
+          const labelAudio = document.createElement("label");
+          labelAudio.textContent = "Audio URL:";
+          slideDiv.appendChild(labelAudio);
+
+          const inputAudio = document.createElement("input");
+          inputAudio.type = "text";
+          inputAudio.name = `audio${slideCount}`;
+          inputAudio.required = true;
+          inputAudio.value = slide.audio;
+          slideDiv.appendChild(inputAudio);
+
+          slidesContainer.appendChild(slideDiv);
+          slideCount++;
+        });
+      }
+    </script>
+  </body>
+</html>
