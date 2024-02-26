@@ -3,7 +3,6 @@ let current = 0,
   storiesData,
   audio,
   dictionary,
-  storyJSON,
   finalUrl,
   storyId,
   numberOfSlides;
@@ -26,6 +25,7 @@ function downloadPDF() {
   link.download = storiesData.stories[storyId].pdf;
   link.click();
 }
+
 function showSlide() {
   document.getElementById("titlecard").style.display = "none";
   document.getElementById("slide").style.display = "block";
@@ -171,7 +171,7 @@ function getUrlParameter(name) {
 
 window.onload = () => {
   storyId = getUrlParameter("id");
-  const storyJSON = fetch("http://0.0.0.0:8000/Stories.json")
+  const storyJSON = fetch("http://0.0.0.0:8000/Stories/Stories.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Failed to fetch JSON: ${response.statusText}`);
@@ -192,7 +192,7 @@ window.onload = () => {
     })
     .then((storyDataResponse) => {
       storyData = storyDataResponse;
-      return fetch("http://0.0.0.0:8000/Dictonary.json");
+      return fetch("http://0.0.0.0:8000/Dictionary/Dictonary.json");
     })
     .then((response) => {
       if (!response.ok) {

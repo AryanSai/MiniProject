@@ -6,30 +6,57 @@
     <link rel="stylesheet" href="style.css" />
     <title>Home</title>
   </head>
-
   <body>
+    <!-- <img src="Images/Logo.png" alt="VidyaVahini Logo" id="logo" /> -->
     <center>
+      <img
+        src="Images/Prem-There you go-Pose.png"
+        alt="Mascot 1"
+        class="mascot mascot-left"
+      />
       <h2>Available Stories</h2>
+      <input
+        type="text"
+        id="searchInput"
+        oninput="searchStories()"
+        placeholder="Search stories..."
+      />
+      <br />
+      <br />
       <div class="menu" id="menu"></div>
+      <img
+        src="Images/Shanthi-There you go-Pose-Flipped.png"
+        alt="Mascot 2"
+        class="mascot mascot-right"
+      />
     </center>
 
     <script>
-      let storiesData, path;
-
-      function updatePageContent() {
-        var count = storiesData.stories.length;
+      let storiesData;
+      function updatePageContent(stories) {
+        var count = stories.length;
         var menu = document.getElementById("menu");
-
+        menu.innerHTML = "";
         for (var i = 0; i < count; i++) {
           var anchorTag = document.createElement("a");
-          anchorTag.href = "StoryReader.html?id=" + i;
-          anchorTag.textContent = storiesData.stories[i].title;
+          anchorTag.href = "StoryReader.html?id=" + (stories[i].id - 1);
+          anchorTag.textContent = stories[i].title;
           menu.appendChild(anchorTag);
         }
       }
 
+      function searchStories() {
+        const searchInput = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const filteredStories = storiesData.stories.filter((story) =>
+          story.title.toLowerCase().includes(searchInput)
+        );
+        updatePageContent(filteredStories);
+      }
+
       window.onload = () => {
-        const storyJSON = fetch("http://0.0.0.0:8000/Stories.json")
+        fetch("http://0.0.0.0:8000/Stories/Stories.json")
           .then((response) => {
             if (!response.ok) {
               throw new Error(`Failed to fetch JSON: ${response.statusText}`);
@@ -38,7 +65,7 @@
           })
           .then((data) => {
             storiesData = data;
-            updatePageContent();
+            updatePageContent(storiesData.stories);
           });
       };
     </script>
