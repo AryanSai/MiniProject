@@ -3,7 +3,5 @@ python3 -m http.server
 
 story uploader
 isl video
-page numbering
 search option for home page and search tags
 pdf download
-glossary side overlay

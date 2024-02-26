@@ -8,17 +8,31 @@
   </head>
 
   <body>
-    <div class="page" id="slide">
+    <div id="titlecard">
+      <h1 id="cardTitle" style="text-decoration: underline"></h1>
+      <h2 id="author"></h2>
+      <img id="titleImage" src="" />
+      <button id="readStoryButton" onclick="showSlide()">Read Story</button>
+      <br />
+      <button id="downloadPDFButton" onclick="downloadPDF()">
+        Download PDF
+      </button>
+    </div>
+
+    <div class="page" id="slide" style="display: none">
       <h2 id="title"></h2>
       <img id="image" src="" />
       <p id="text"></p>
+      <button class="tooltip" onclick="playAudio()">
+        Replay &#x27F3;<span class="tooltiptext">Replay the audio</span>
+      </button>
+      <br />
+      <br />
       <div class="audio-container">
         <button class="tooltip" onclick="prevPage()">
           &laquo;<span class="tooltiptext">Previous Page</span>
         </button>
-        <button class="tooltip" onclick="playAudio()">
-          Replay &#x27F3;<span class="tooltiptext">Replay the audio</span>
-        </button>
+        <div class="pagination" id="paginationContainer"></div>
         <button class="tooltip" onclick="nextPage()">
           &raquo;<span class="tooltiptext">Next Page</span>
         </button>
@@ -26,11 +40,24 @@
     </div>
 
     <div id="sidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeSideNav()"
+      <a
+        href="javascript:void(0)"
+        class="closebtn"
+        onclick="closeSideNav()"
+        style="font-size: 100px"
         >&times;</a
       >
+
+      <span style="font-size: 30px; text-decoration: underline"
+        ><strong>Glossary</strong></span
+      >
+      <br />
       <span id="word"></span>
+      <br />
       <span id="meaning"></span>
+      <br />
+      <br />
+      <img id="meaningImage" src="" />
     </div>
 
     <script src="script.js"></script>

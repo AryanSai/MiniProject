@@ -2,19 +2,23 @@
   "words": [
     {
       "word": "Halwa",
-      "meaning": "A sweet Indian dish consisting of sugar, nuts, butter, and cardamom."
+      "meaning": "A sweet Indian dish consisting of sugar, nuts, butter, and cardamom.",
+      "image":"DictionaryImages/Halwa.jpg"
     },
     {
       "word": "Curry",
-      "meaning": "A gravy-based liquid dish of vegetables, etc."
+      "meaning": "A gravy-based liquid dish of vegetables, etc.",
+      "image":"DictionaryImages/Curry.jpg"
     },
     {
       "word": "Sambhar",
-      "meaning": "South Indian dish using lentils, vegetables and spices"
+      "meaning": "South Indian dish using lentils, vegetables and spices",
+      "image":"DictionaryImages/Sambhar.jpg"
     },
     {
       "word": "Variety",
-      "meaning": "Different types of the same thing"
+      "meaning": "Different types of the same thing",
+      "image":"DictionaryImages/Variety.jpg"
     }
   ]
 }

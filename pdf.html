@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Download PDF Example</title>
+  </head>
+  <body>
+    <h2>Download PDF</h2>
+    <button onclick="downloadPDF('try.pdf', 'try.pdf')">Download PDF</button>
+
+    <script>
+      function downloadPDF(pdfURL, filename) {
+        var link = document.createElement("a");
+        link.href = pdfURL;
+        link.download = filename;
+        link.click();
+      }
+    </script>
+  </body>
+</html>
