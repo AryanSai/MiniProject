@@ -182,13 +182,6 @@
           });
         }
 
-        const existingData = loadExistingData();
-        if (existingData) {
-          existingData.story.slides.forEach((slide) => {
-            storyData.story.slides.push(slide);
-          });
-        }
-
         const jsonData = JSON.stringify(storyData, null, 2);
         downloadJSON(
           jsonData,

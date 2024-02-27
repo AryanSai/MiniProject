@@ -16,7 +16,13 @@ function showTitleCard() {
     storiesData.stories[storyId].titleImage;
 
   numberOfSlides = storyData.story.slides.length;
-  console.log("Number of stories:", numberOfSlides);
+}
+
+function showEndCard() {
+  document.getElementById("endtitle").textContent =
+    storiesData.stories[storyId].title;
+  document.getElementById("slide").style.display = "none";
+  document.getElementById("endcard").style.display = "block";
 }
 
 function downloadPDF() {
@@ -117,6 +123,9 @@ function nextPage() {
     current++;
     updatePagination();
     updatePageContent();
+  } else {
+    current = 0;
+    showEndCard();
   }
 }
 

@@ -11,7 +11,7 @@
   text-decoration: none;
   transition: background-color 0.3s;
   border: 1px solid #ddd;
-  margin: 0 4px;
+  margin: 1vw 4px;
 }
 
 .pagination a.active {
@@ -24,13 +24,15 @@
   background-color: #ddd;
 }
 
-#titlecard {
+.titlecard {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   height: 100vh;
+  max-width: 100%;
+  overflow: auto;
 }
 
 #titleImage {
@@ -79,11 +81,14 @@
   object-fit: scale-down;
 }
 
+html,
 body {
   height: 100%;
   margin: 0;
   font-family: "ABeeZee";
-  font-size: larger;
+  font-size: x-large;
+  padding: 0;
+  overflow: hidden;
 }
 
 .menu {
@@ -166,7 +171,7 @@ button {
   padding: 8px 16px;
   font-size: 20px;
   cursor: pointer;
-  margin: 0 4px;
+  margin: 4px 4px;
 }
 
 .audio-container {
@@ -214,6 +219,8 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 100%;
+  overflow: auto;
 }
 
 .sidenav a {

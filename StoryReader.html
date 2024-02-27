@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <div id="titlecard">
+    <div class="titlecard" id="titlecard">
       <img
         src="Images/Prem-There you go-Pose.png"
         alt="Mascot 1"
@@ -18,7 +18,27 @@
       <h2 id="author"></h2>
       <img id="titleImage" src="" />
       <button id="readStoryButton" onclick="showSlide()">Read Story</button>
-      <br />
+      <button id="downloadPDFButton" onclick="downloadPDF()">
+        Download PDF
+      </button>
+      <img
+        src="Images/Shanthi-There you go-Pose-Flipped.png"
+        alt="Mascot 2"
+        class="mascot mascot-right"
+      />
+    </div>
+
+    <div class="titlecard" id="endcard" style="display: none">
+      <img
+        src="Images/Prem-There you go-Pose.png"
+        alt="Mascot 1"
+        class="mascot mascot-left"
+      />
+      <h1 id="endtitle" style="text-decoration: underline"></h1>
+      <h1>The End</h1>
+      <button id="readStoryButton" onclick="window.location.reload()">
+        Read Again
+      </button>
       <button id="downloadPDFButton" onclick="downloadPDF()">
         Download PDF
       </button>
@@ -36,8 +56,6 @@
       <button class="tooltip" onclick="playAudio()">
         Replay &#x27F3;<span class="tooltiptext">Replay the audio</span>
       </button>
-      <br />
-      <br />
       <div class="audio-container">
         <button class="tooltip" onclick="prevPage()">
           &laquo;<span class="tooltiptext">Previous Page</span>
