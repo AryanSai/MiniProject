@@ -51,6 +51,15 @@
       .slide {
         margin-bottom: 20px;
       }
+      .upload-container {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 10px;
+      }
+
+      .file-name {
+        margin-bottom: 5px;
+      }
     </style>
   </head>
 
@@ -87,6 +96,37 @@
         <label for="author">Author:</label>
         <input type="text" id="author" name="author" required />
 
+        <div class="upload-container">
+          <input
+            type="file"
+            id="pdfInput"
+            style="display: none"
+            accept="application/pdf"
+          />
+          <div
+            id="pdfFileName"
+            class="file-name"
+            style="margin-bottom: 5px"
+          ></div>
+          <button onclick="uploadPDF()">Upload Story PDF</button>
+        </div>
+
+        <div class="upload-container">
+          <input
+            type="file"
+            id="titleImgInput"
+            style="display: none"
+            accept="image/*"
+          />
+          <div
+            id="titleImgFileName"
+            class="file-name"
+            style="margin-bottom: 5px"
+          ></div>
+          <button type="button" onclick="uploadTitleImage()">
+            Upload Title Image
+          </button>
+        </div>
         <div class="slides-container" id="slidesContainer">
           <!--dynamically slides are added-->
         </div>
@@ -127,11 +167,12 @@
         slideDiv.appendChild(slideTitle);
 
         const labelPhoto = document.createElement("label");
-        labelPhoto.textContent = "Photo URL:";
+        labelPhoto.textContent = "Upload Photo:";
         slideDiv.appendChild(labelPhoto);
 
         const inputPhoto = document.createElement("input");
-        inputPhoto.type = "text";
+        inputPhoto.type = "file";
+        inputPhoto.accept = "image/*"; // Accept only image files
         inputPhoto.name = `photo${slideCount}`;
         inputPhoto.required = true;
         slideDiv.appendChild(inputPhoto);
@@ -147,11 +188,12 @@
         slideDiv.appendChild(inputText);
 
         const labelAudio = document.createElement("label");
-        labelAudio.textContent = "Audio URL:";
+        labelAudio.textContent = "Upload Audio:";
         slideDiv.appendChild(labelAudio);
 
         const inputAudio = document.createElement("input");
-        inputAudio.type = "text";
+        inputAudio.type = "file";
+        inputAudio.accept = "audio/*"; // Accept only audio files
         inputAudio.name = `audio${slideCount}`;
         inputAudio.required = true;
         slideDiv.appendChild(inputAudio);
@@ -187,6 +229,7 @@
           jsonData,
           document.getElementById("title").value + ".json"
         );
+        //save to stories.json
       }
 
       function downloadJSON(data, filename) {
@@ -201,6 +244,66 @@
         a.click();
         URL.revokeObjectURL(url);
         document.body.removeChild(a);
+      }
+
+      function saveToStoriesJSON() {
+        // Get input values from the HTML form
+        const title = document.getElementById("title").value;
+        const author = document.getElementById("author").value;
+        const titleImage = ""; // get path
+        const pdf = ""; // get PDF file path
+        const path =
+          "Stories/" +
+          title.replace(/\s/g, "") +
+          "/" +
+          title.replace(/\s/g, "") +
+          ".json"; // Generate path based on the title
+
+        const newStory = {
+          id: id,
+          title: title,
+          author: author,
+          titleImage: titleImage,
+          pdf: pdf,
+          path: path,
+        };
+
+        //load the stories.json and add to it
+        //and save the story back
+      }
+
+      function uploadPDF() {
+        document.getElementById("pdfInput").click();
+        document
+          .getElementById("pdfInput")
+          .addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+              // Display the selected file name
+              const fileNameDiv = document.getElementById("pdfFileName");
+              fileNameDiv.textContent = file.name;
+              console.log("Selected PDF file:", file.name);
+            } else {
+              console.log("No PDF file selected");
+            }
+          });
+      }
+
+      function uploadTitleImage() {
+        document.getElementById("titleImgInput").click();
+        document
+          .getElementById("titleImgInput")
+          .addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+              // Display the selected file name
+              const fileNameDiv = document.getElementById("titleImgFileName");
+              fileNameDiv.textContent = file.name;
+              console.log("Selected image file:", file.name);
+            } else {
+              console.log("No image selected");
+            }
+          });
       }
 
       function loadExistingData() {

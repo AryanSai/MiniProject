@@ -3,3 +3,8 @@ python3 -m http.server
 
 story uploader
 isl video
+
+
+upload the title image
+upload story pdf 
+all these paths should be put in the stories.json
