@@ -137,7 +137,32 @@
     </div>
 
     <script>
-      let slideCount = 1;
+      let slideCount = 1,
+        stories;
+
+      window.onload = function () {
+        fetch("Stories/Stories.json")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to load Stories.json");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            stories = data.stories;
+            if (stories.length > 0) {
+              const lastStory = stories[stories.length - 1];
+              const newId = lastStory.id + 1;
+              console.log("New ID for the next story:", newId);
+            } else {
+              const newId = 1;
+              console.log("New ID for the next story:", newId);
+            }
+          })
+          .catch((error) => {
+            console.error("Error loading Stories.json:", error);
+          });
+      };
 
       document
         .getElementById("uploadButton")
@@ -172,7 +197,7 @@
 
         const inputPhoto = document.createElement("input");
         inputPhoto.type = "file";
-        inputPhoto.accept = "image/*"; // Accept only image files
+        inputPhoto.accept = "image/*";
         inputPhoto.name = `photo${slideCount}`;
         inputPhoto.required = true;
         slideDiv.appendChild(inputPhoto);
@@ -193,7 +218,7 @@
 
         const inputAudio = document.createElement("input");
         inputAudio.type = "file";
-        inputAudio.accept = "audio/*"; // Accept only audio files
+        inputAudio.accept = "audio/*";
         inputAudio.name = `audio${slideCount}`;
         inputAudio.required = true;
         slideDiv.appendChild(inputAudio);
@@ -210,6 +235,10 @@
             slides: [],
           },
         };
+
+        // Directory path for storing files for this story
+        const storyDirectory =
+          "Stories/" + storyData.story.title.replace(/\s/g, "") + "/";
 
         for (let i = 1; i < slideCount; i++) {
           const photo = document.getElementsByName(`photo${i}`)[0].value;
@@ -229,7 +258,7 @@
           jsonData,
           document.getElementById("title").value + ".json"
         );
-        //save to stories.json
+        saveToStoriesJSON();
       }
 
       function downloadJSON(data, filename) {
@@ -247,29 +276,58 @@
       }
 
       function saveToStoriesJSON() {
-        // Get input values from the HTML form
         const title = document.getElementById("title").value;
         const author = document.getElementById("author").value;
-        const titleImage = ""; // get path
-        const pdf = ""; // get PDF file path
-        const path =
-          "Stories/" +
-          title.replace(/\s/g, "") +
-          "/" +
-          title.replace(/\s/g, "") +
-          ".json"; // Generate path based on the title
+        const titleImage = ""; // You need to get the path for the title image
+        const pdf = ""; // You need to get the path for the PDF file
 
-        const newStory = {
-          id: id,
-          title: title,
-          author: author,
-          titleImage: titleImage,
-          pdf: pdf,
-          path: path,
-        };
+        fetch("http://0.0.0.0:8000/Stories/Stories.json")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to load Stories.json");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const stories = data.stories;
+            const newId =
+              stories.length > 0 ? stories[stories.length - 1].id + 1 : 1;
+            const path = "Stories/Story" + newId + "/";
 
-        //load the stories.json and add to it
-        //and save the story back
+            const newStory = {
+              id: newId,
+              title: title,
+              author: author,
+              titleImage: titleImage,
+              pdf: pdf,
+              path: path + "story.json",
+            };
+            stories.push(newStory);
+            const updatedData = { stories: stories };
+            saveStoriesJSON(updatedData);
+          })
+          .catch((error) => {
+            console.error("Error saving story to Stories.json:", error);
+          });
+      }
+
+      function saveStoriesJSON(data) {
+        fetch("http://0.0.0.0:8000/Stories/Stories.json", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to save Stories.json");
+            }
+            console.log("Stories.json updated successfully.");
+          })
+          .catch((error) => {
+            console.error("Error saving Stories.json:", error);
+          });
       }
 
       function uploadPDF() {
