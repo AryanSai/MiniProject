@@ -23,6 +23,90 @@
       "titleImage": "Stories/Story2/title.jpg",
       "pdf": "Stories/Story2/Story2.pdf",
       "path": "Stories/Story2/Story2.json"
+    },
+    {
+      "id": 2,
+      "title": "One Day in School",
+      "author": "Aryan",
+      "titleImage": "Stories/Story2/title.jpg",
+      "pdf": "",
+      "path": "Stories/Story1/Story1.json"
+    },
+    {
+      "id": 3,
+      "title": "Love All Hate Never",
+      "author": "Vidya Vahini",
+      "titleImage": "Stories/Story2/title.jpg",
+      "pdf": "Stories/Story2/Story2.pdf",
+      "path": "Stories/Story2/Story2.json"
+    }
+    ,
+    {
+      "id": 2,
+      "title": "One Day in School",
+      "author": "Aryan",
+      "titleImage": "Stories/Story2/title.jpg",
+      "pdf": "",
+      "path": "Stories/Story1/Story1.json"
+    },
+    {
+      "id": 3,
+      "title": "Love All Hate Never",
+      "author": "Vidya Vahini",
+      "titleImage": "Stories/Story2/title.jpg",
+      "pdf": "Stories/Story2/Story2.pdf",
+      "path": "Stories/Story2/Story2.json"
+    }
+    ,
+    {
+      "id": 2,
+      "title": "One Day in School",
+      "author": "Aryan",
+      "titleImage": "Stories/Story2/title.jpg",
+      "pdf": "",
+      "path": "Stories/Story1/Story1.json"
+    },
+    {
+      "id": 3,
+      "title": "Love All Hate Never",
+      "author": "Vidya Vahini",
+      "titleImage": "Stories/Story2/title.jpg",
+      "pdf": "Stories/Story2/Story2.pdf",
+      "path": "Stories/Story2/Story2.json"
+    }
+    ,
+    {
+      "id": 2,
+      "title": "One Day in School",
+      "author": "Aryan",
+      "titleImage": "Stories/Story2/title.jpg",
+      "pdf": "",
+      "path": "Stories/Story1/Story1.json"
+    },
+    {
+      "id": 3,
+      "title": "Love All Hate Never",
+      "author": "Vidya Vahini",
+      "titleImage": "Stories/Story2/title.jpg",
+      "pdf": "Stories/Story2/Story2.pdf",
+      "path": "Stories/Story2/Story2.json"
+    }
+    ,
+    {
+      "id": 2,
+      "title": "One Day in School",
+      "author": "Aryan",
+      "titleImage": "Stories/Story2/title.jpg",
+      "pdf": "",
+      "path": "Stories/Story1/Story1.json"
+    },
+    {
+      "id": 3,
+      "title": "Love All Hate Never",
+      "author": "Vidya Vahini",
+      "titleImage": "Stories/Story2/title.jpg",
+      "pdf": "Stories/Story2/Story2.pdf",
+      "path": "Stories/Story2/Story2.json"
     }
   ]
 }

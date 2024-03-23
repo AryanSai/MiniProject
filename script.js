@@ -33,11 +33,18 @@ function downloadPDF() {
 }
 
 function showSlide() {
+  current = 0;
+  updatePagination();
+  var paginationContainer = null;
+  document.getElementById("endcard").style.display = "none";
   document.getElementById("titlecard").style.display = "none";
   document.getElementById("slide").style.display = "block";
 
-  var paginationContainer = document.getElementById("paginationContainer");
+  paginationContainer = document.getElementById("paginationContainer");
 
+  if (paginationContainer !== null) {
+    paginationContainer.innerHTML = "";
+  }
   for (var i = 0; i < numberOfSlides; i++) {
     var link = document.createElement("a");
     link.href = "#";
@@ -125,6 +132,7 @@ function nextPage() {
     updatePageContent();
   } else {
     current = 0;
+    audio.pause();
     showEndCard();
   }
 }

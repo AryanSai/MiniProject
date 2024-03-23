@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>Story Reader</title>
+    <script src="script.js"></script>
   </head>
 
   <body>
+    <img src="Images/EmblemVV.png" alt="Logo Left" class="logo-left" />
+    <img src="Images/EmblemIE.png" alt="Logo Right" class="logo-right" />
+
     <div class="titlecard" id="titlecard">
       <img
         src="Images/Prem-There you go-Pose.png"
@@ -26,9 +30,6 @@
         alt="Mascot 2"
         class="mascot mascot-right"
       />
-      <p class="copyright" style="text-align: center">
-        © Copyright Sri Sathya Sai Vidyavahini || All Rights Reserved.
-      </p>
     </div>
 
     <div class="titlecard" id="endcard" style="display: none">
@@ -39,9 +40,7 @@
       />
       <h1 id="endtitle" style="text-decoration: underline"></h1>
       <h1>The End</h1>
-      <button id="readStoryButton" onclick="window.location.reload()">
-        Read Again
-      </button>
+      <button id="readStoryButton" onclick="showSlide()">Read Again</button>
       <button id="downloadPDFButton" onclick="downloadPDF()">
         Download PDF
       </button>
@@ -50,9 +49,6 @@
         alt="Mascot 2"
         class="mascot mascot-right"
       />
-      <p class="copyright" style="text-align: center">
-        © Copyright Sri Sathya Sai Vidyavahini || All Rights Reserved.
-      </p>
     </div>
 
     <div class="page" id="slide" style="display: none">
@@ -73,7 +69,7 @@
       </div>
     </div>
 
-    <div id="sidenav" class="sidenav">
+    <div id="sidenav" class="sidenav" onclick="closeSideNav()">
       <a
         href="javascript:void(0)"
         class="closebtn"
@@ -94,6 +90,5 @@
       <img id="meaningImage" src="" />
     </div>
 
-    <script src="script.js"></script>
   </body>
 </html>
