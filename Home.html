@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="style.css" />
     <title>Home</title>
   </head>
@@ -29,6 +30,9 @@
         alt="Mascot 2"
         class="mascot mascot-right"
       />
+      <p class="copyright" style="text-align: center">
+        © Copyright Sri Sathya Sai Vidyavahini || All Rights Reserved.
+      </p>
     </center>
 
     <script>
@@ -56,7 +60,7 @@
       }
 
       window.onload = () => {
-        fetch("http://0.0.0.0:8000/Stories/Stories.json")
+        fetch("http://127.0.0.1:5500/Stories/Stories.json")
           .then((response) => {
             if (!response.ok) {
               throw new Error(`Failed to fetch JSON: ${response.statusText}`);

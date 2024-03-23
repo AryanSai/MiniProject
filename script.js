@@ -180,7 +180,7 @@ function getUrlParameter(name) {
 
 window.onload = () => {
   storyId = getUrlParameter("id");
-  const storyJSON = fetch("http://0.0.0.0:8000/Stories/Stories.json")
+  const storyJSON = fetch("http://127.0.0.1:5500/Stories/Stories.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Failed to fetch JSON: ${response.statusText}`);
@@ -189,7 +189,7 @@ window.onload = () => {
     })
     .then((data) => {
       storiesData = data;
-      var baseUrl = "http://0.0.0.0:8000/";
+      var baseUrl = "http://127.0.0.1:5500/";
       finalUrl = baseUrl + storiesData.stories[storyId].path;
       return fetch(finalUrl);
     })
@@ -201,7 +201,7 @@ window.onload = () => {
     })
     .then((storyDataResponse) => {
       storyData = storyDataResponse;
-      return fetch("http://0.0.0.0:8000/Dictionary/Dictonary.json");
+      return fetch("http://127.0.0.1:5500/Dictionary/Dictonary.json");
     })
     .then((response) => {
       if (!response.ok) {

@@ -4,6 +4,17 @@
   display: inline-block;
 }
 
+.copyright {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #f4f4f4;
+  padding: 2px 0;
+  color: #666;
+  font-size: 14px;
+}
+
 .pagination a {
   color: black;
   float: left;
@@ -30,7 +41,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 100vh;
+  height: auto;
   max-width: 100%;
   overflow: auto;
 }
@@ -107,6 +118,7 @@ body {
   display: block;
   padding: 12px;
   text-decoration: none; /*remove underline */
+  border-radius: 10px 10px; 
 }
 
 .menu a:hover {
@@ -252,3 +264,4 @@ button {
     font-size: 18px;
   }
 }
+
