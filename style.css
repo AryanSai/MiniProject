@@ -4,7 +4,6 @@
   display: inline-block;
 }
 
-
 .pagination a {
   color: black;
   float: left;
@@ -110,6 +109,7 @@ body {
   font-family: "ABeeZee";
   font-size: x-large;
   padding: 0;
+  background-color: #fcf4dd;
 }
 
 .highlight {
